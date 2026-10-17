@@ -21,3 +21,8 @@ See [NOTICE](NOTICE) for contributor credits. Dependencies retain their upstream
 copyright notices. The private source repository was not rewritten. Revision IDs
 inside retained experiment records identify the original measurement environment;
 they are not commits in this repository. Those records remain unmodified.
+
+The optional Tiny Shakespeare evaluation fetches the checksum-pinned text from
+Andrej Karpathy's `char-rnn` repository into ignored local experiment storage.
+That corpus is not bundled in this source tree or distribution archives. The
+source URL, revision and SHA-256 are recorded with the evaluation results.

@@ -102,17 +102,33 @@ See [experiment methodology and measured smoke results](docs/EXPERIMENTS.md).
 
 ## Measured findings
 
-A three-seed experiment on generated text reduced mean held-out character cross
-entropy from 3.252 before training to
-0.320 after 300 steps (sample standard deviation
-0.013). Splits are disjoint by complete sentence;
-this demonstrates learning a controlled grammar and makes no translation-quality
-claim. [Experiment settings, raw results and cache findings](docs/EXPERIMENTS.md)
-include reproduction commands and limitations.
+The implementation is evaluated on both a controlled grammar and held-out
+Tiny Shakespeare text, with **three seeds per dataset**, training-only statistical
+baselines and fixed final-step evaluation.
 
-Hardware validation on an RTX A5000 passed all 70 regression cases, including
-nine explicit CUDA tests. [GPU validation and cache measurements](docs/CUDA_VALIDATION.md)
-include the runtime, raw evidence and reproduction command.
+![Baseline comparisons and learning curves](docs/images/evaluation-study.svg)
+
+| Dataset | Bigram test loss | Transformer test loss (mean ± SD) | Character perplexity | Next-character accuracy |
+| --- | ---: | ---: | ---: | ---: |
+| Controlled grammar | 1.236 | **0.320 ± 0.013** | 1.377 | 87.33% |
+| Tiny Shakespeare | 2.490 | **2.246 ± 0.004** | 9.445 | 33.89% |
+
+Loss is nats per character; comparisons use the same held-out targets within
+each dataset. Accuracy is teacher-forced next-character prediction, not
+free-running passage accuracy. These are small-model experiments, not a
+general-purpose LLM or translation benchmark.
+
+A **12-workload cache sweep** measured ratios from **0.69× to 2.11×**;
+all cached/uncached greedy outputs matched. The full report includes slower
+cache cases, learning curves, all per-seed scores and all generated samples.
+
+[Evaluation methodology, generation checks and full results](docs/EVALUATION.md) ·
+[Raw measurements](docs/experiments/evaluation-study.json) ·
+[Earlier CPU experiments](docs/EXPERIMENTS.md)
+
+Hardware validation on an RTX A5000 passed all 70 cases in that recorded run,
+including nine explicit CUDA tests. [GPU evidence](docs/CUDA_VALIDATION.md)
+includes the runtime, raw logs, cache measurements and reproduction command.
 
 ## Python API
 
@@ -138,10 +154,10 @@ masking, cache layout, context rollover, checkpoint format and split policies.
 
 ## Compatibility and project layout
 
-`student.llm` still exports the original model/tokenizer/dataset/loss/generation
-names, and `python -m student.llm_train --dataset ... --output ...` routes to the
+`decoder_llm.compat.llm` still exports the original model/tokenizer/dataset/loss/generation
+names, and `python -m decoder_llm.compat.llm_train --dataset ... --output ...` routes to the
 new configurable trainer. Legacy train/epoch/plot helper functions and the
-`student.llm_inference_eval` CLI remain available. State-dict parameter names are
+`decoder_llm.compat.llm_inference_eval` CLI remain available. State-dict parameter names are
 preserved. New CLI defaults are intentionally small and CPU-friendly; the old
 fixed six-layer/three-epoch experiment is not silently reproduced.
 
@@ -157,7 +173,7 @@ not invent missing training state. See the architecture document for security
 and migration details.
 
 * `decoder_llm/`: reusable model, data, decoding, training, evaluation and CLI.
-* `student/`: compatibility imports and historical helper interfaces.
+* `decoder_llm/compat/`: compatibility imports and historical helper interfaces.
 * `examples/`: new synthetic text and a small JSON model config.
 * `tests/`: regression tests for model behavior, decoding, data, checkpoints and CLI workflows.
 * `scripts/audit_history.py`: repeatable read-only local secret-pattern review.

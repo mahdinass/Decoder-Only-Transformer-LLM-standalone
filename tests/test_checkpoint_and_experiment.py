@@ -132,9 +132,9 @@ def test_cli_workflow(tmp_path, capsys):
 
 
 def test_legacy_import_paths(model):
-    from student.llm import DecoderOnlyTransformer
-    from student.llm_train import TranslationLineDataset, train_epoch
-    from student.llm_inference_eval import bleu_char as legacy_bleu
+    from decoder_llm.compat.llm import DecoderOnlyTransformer
+    from decoder_llm.compat.llm_train import TranslationLineDataset, train_epoch
+    from decoder_llm.compat.llm_inference_eval import bleu_char as legacy_bleu
     assert isinstance(model, DecoderOnlyTransformer)
     assert legacy_bleu("abcd", "abcd") == 1
     with pytest.raises(ValueError, match="no batches"):
@@ -142,7 +142,7 @@ def test_legacy_import_paths(model):
 
 
 def test_original_pretrain_helper_cycles_loader(model):
-    from student.llm import pretrain
+    from decoder_llm.compat.llm import pretrain
     batch = {"input_ids": torch.tensor([[1, 2]]), "target_ids": torch.tensor([[2, 3]])}
     before = model.blocks[0].attn.qkv.weight.detach().clone()
     metrics = pretrain(model, [batch], num_steps=2, log_interval=2)

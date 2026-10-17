@@ -1,4 +1,4 @@
-"""Backward-compatible imports from the original student.llm module.
+"""Backward-compatible imports from the original decoder_llm.compat.llm module.
 
 Architecture and parameter names are preserved in decoder_llm.model.
 """

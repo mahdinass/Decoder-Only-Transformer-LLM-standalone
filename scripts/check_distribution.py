@@ -15,7 +15,7 @@ def check(directory):
         if path.suffix == ".whl":
             with zipfile.ZipFile(path) as archive:
                 names = archive.namelist()
-            required = ("decoder_llm/model.py", "decoder_llm/cli.py", "student/llm.py")
+            required = ("decoder_llm/model.py", "decoder_llm/cli.py", "decoder_llm/compat/llm.py")
             if not all(name in names for name in required):
                 raise ValueError(f"{path.name}: missing package components")
             for notice in ("LICENSE", "NOTICE", "PROVENANCE.md"):
@@ -25,7 +25,10 @@ def check(directory):
             with tarfile.open(path) as archive:
                 names = archive.getnames()
             for required in ("tests/conftest.py", "uv.lock", "LICENSE", "NOTICE", "CHANGELOG.md",
-                             "PROVENANCE.md", "scripts/run_reference_experiment.py"):
+                             "PROVENANCE.md", "scripts/run_reference_experiment.py",
+                             "scripts/run_evaluation_study.py", "scripts/plot_evaluation_study.py",
+                             "docs/EVALUATION.md", "docs/images/evaluation-study.svg",
+                             "docs/images/cache-sweep.svg"):
                 if not any(name.endswith("/" + required) for name in names):
                     raise ValueError(f"{path.name}: missing {required}")
         for name in names:

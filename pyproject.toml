@@ -19,7 +19,7 @@ plots = ["matplotlib>=3.8,<4"]
 decoder-llm = "decoder_llm.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["decoder_llm*", "student*"]
+include = ["decoder_llm*"]
 exclude = ["tests*", "data*"]
 
 [tool.pytest.ini_options]

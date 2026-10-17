@@ -34,3 +34,11 @@ gitleaks git . --log-opts="--all --reflog -m" --redact=100
 
 A negative scan cannot guarantee absence of unknown or encoded credentials.
 Hosted secrets, logs, artifacts and inaccessible refs require separate review.
+
+## Evaluation update review (2026-10-18)
+
+The renamed package and expanded evaluation release files were scanned before
+push with Gitleaks 8.30.1. The sole alert remained the previously documented
+tokenizer source SHA-256 in the raw CUDA summary. No new credential values were
+identified. External evaluation text and training checkpoints remain outside
+tracked files and package archives.

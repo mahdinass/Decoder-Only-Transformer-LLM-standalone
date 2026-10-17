@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Compatibility helpers now live under `decoder_llm.compat`, with updated module
+  commands, imports and distribution checks.
+- Comparative grammar and Tiny Shakespeare evaluation with three seeds, explicit
+  statistical baselines, character accuracy, learning curves and generation checks.
+- Twelve-workload CPU cache sweep and reproducible results figures.
+
 ## 0.2.0
 
 ### Added

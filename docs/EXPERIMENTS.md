@@ -1,5 +1,9 @@
 # Experiments and measurements
 
+The expanded [comparative evaluation](EVALUATION.md) adds natural text, statistical
+baselines, learning curves, generation diagnostics and a twelve-workload cache
+sweep. This page retains the earlier reference and smoke experiment records.
+
 ## Controlled grammar experiment
 
 The reference experiment uses only project-generated text and requires no external

@@ -1,0 +1,2328 @@
+{
+  "study": "character-evaluation-v1",
+  "environment": {
+    "python": "3.12.5",
+    "torch": "2.14.1+cpu",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "cuda_runtime": null,
+    "git_revision": "13679719053bdeb8af2bcb1f7762ee2776b8fb58",
+    "git_dirty": true,
+    "cpu_threads": 1
+  },
+  "source_sha256": [
+    {
+      "path": "decoder_llm/__init__.py",
+      "sha256": "8e045863b077854f35e0374f903f6b702be5326fd146afa9f7af6ac73bd35354"
+    },
+    {
+      "path": "decoder_llm/__main__.py",
+      "sha256": "c13eb66970ae37b8b044f428b309e67868814b90a8bb408806f3316ce4dfbc5b"
+    },
+    {
+      "path": "decoder_llm/benchmark.py",
+      "sha256": "24cded72ce71536e1e08d92f817c85ef16ebf6a54acc934a7575f04e5b29428a"
+    },
+    {
+      "path": "decoder_llm/checkpoint.py",
+      "sha256": "053eea256759c26fc910e014434ae4568ba2ed6d0a79d30fb80012c45bf8a694"
+    },
+    {
+      "path": "decoder_llm/cli.py",
+      "sha256": "732f1ccf8bbd23dfff0105a0c4c22670200d5ffed5c7f17bc8ce10c1a413f3c4"
+    },
+    {
+      "path": "decoder_llm/compat/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "decoder_llm/compat/llm.py",
+      "sha256": "8747f8822c5a6c5250b8d365fcba6306a6e8b484d8c1f204fc4b32915b614523"
+    },
+    {
+      "path": "decoder_llm/compat/llm_inference_eval.py",
+      "sha256": "42afb2d18004cd0cc9b107d30b2089e5bf09f079cf0aa31a5fc0b8adbc906a91"
+    },
+    {
+      "path": "decoder_llm/compat/llm_train.py",
+      "sha256": "20867d9b2392432cc82037a81b063f4f642ca5c0e8a30ffe6d5f68a8a13a3961"
+    },
+    {
+      "path": "decoder_llm/data.py",
+      "sha256": "b819a28ec14c714de50215207ad943fe82beb06efcfe9544f1eebb796c5ff065"
+    },
+    {
+      "path": "decoder_llm/evaluation.py",
+      "sha256": "c647eefee6a273fdfb07c72450078e6365c7b5cb6a7e8d7cd189dace2dc874d2"
+    },
+    {
+      "path": "decoder_llm/experiment.py",
+      "sha256": "fc706788b0c25b1d0a3dc1b77ffc02f55b5f796f97b95ecadecad42779929596"
+    },
+    {
+      "path": "decoder_llm/generation.py",
+      "sha256": "e6f586d26ebf582bfffa1611c7957c0edc8311eb67a0f425ecb6c0653160fcd7"
+    },
+    {
+      "path": "decoder_llm/metrics.py",
+      "sha256": "10392c810340fcd01b45ec15f1fef6450c1022465905ca0ce1177e06fdf14c91"
+    },
+    {
+      "path": "decoder_llm/model.py",
+      "sha256": "c9605c6bc94a21a2ac96af6c933094cbe4b1cc75f16910b2b6a0d6b6825ce4ac"
+    },
+    {
+      "path": "decoder_llm/tokenizer.py",
+      "sha256": "90e6645e393550bd47df20a41de910b968a3d23036afc5a3581937e1a1760349"
+    },
+    {
+      "path": "decoder_llm/training.py",
+      "sha256": "3a91a76d0230f5201392c328f3d3077aaeca7b75db6247ea1037c7a3704b633c"
+    },
+    {
+      "path": "scripts/run_evaluation_study.py",
+      "sha256": "97e0f9a862d3d0b04ae2ca58ba685d7907b39269e1e6e1cfb69fc45258b30c1d"
+    },
+    {
+      "path": "scripts/run_reference_experiment.py",
+      "sha256": "7d3d9fd17384217845709d66cffcd44c1209188a3b7443169c9c88946124bc5b"
+    }
+  ],
+  "protocol": {
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "model_values": {
+      "context_length": 64,
+      "d_model": 64,
+      "num_layers": 2,
+      "num_heads": 4,
+      "d_ff": 128,
+      "dropout": 0.1
+    },
+    "smoothing_alpha": 1.0,
+    "test_policy": "all next-character targets once; Transformer context resets every 64 targets",
+    "selection": "fixed final step; test metrics never select checkpoints or settings",
+    "accuracy": "teacher-forced next-character top-1; ties choose lowest token ID",
+    "limitations": [
+      "One small model family, three seeds and one CPU runtime.",
+      "Contiguous Shakespeare splits can share vocabulary, characters and motifs.",
+      "Generation grammar validity is a narrow mechanical check, not semantic quality.",
+      "Cache timings are one-process samples, not independent hardware trials."
+    ]
+  },
+  "datasets": {
+    "grammar": {
+      "source": {
+        "kind": "generated",
+        "split_seed": 20261017,
+        "split_policy": "complete unique sentences; fixed shuffled 80/10/10 split"
+      },
+      "splits": {
+        "train": {
+          "characters": 9507,
+          "sha256": "4ee2f6757fe418e32e67efe09e6cfa3010900076c6faf881944c344b02e97eba"
+        },
+        "validation": {
+          "characters": 1183,
+          "sha256": "a3d59081e7a69ab01b6154f09f35bc6bf0bc190c54f8dde938980f692caaabdb"
+        },
+        "test": {
+          "characters": 1214,
+          "sha256": "7cfd565d7d0ddc4ce341831eb6ed1c40163951839d8f00267eaab6b09ee35987"
+        }
+      },
+      "vocabulary_size": 25,
+      "baselines": {
+        "uniform": {
+          "loss": 3.2188758248682,
+          "perplexity": 24.999999999999986,
+          "bits_per_character": 4.643856189774724,
+          "accuracy": null,
+          "tokens": 1213
+        },
+        "unigram": {
+          "loss": 2.873610557458467,
+          "perplexity": 17.700812765112783,
+          "bits_per_character": 4.145743700691501,
+          "accuracy": 0.16075845012366036,
+          "tokens": 1213
+        },
+        "bigram": {
+          "loss": 1.23623487957345,
+          "perplexity": 3.442627126824687,
+          "bits_per_character": 1.7835099301345811,
+          "accuracy": 0.5061830173124485,
+          "tokens": 1213
+        }
+      },
+      "runs": [
+        {
+          "seed": 17,
+          "train_config": {
+            "steps": 300,
+            "batch_size": 16,
+            "learning_rate": 0.001,
+            "weight_decay": 0.05,
+            "grad_clip": 1.0,
+            "seed": 17,
+            "val_fraction": 0.1,
+            "val_batches": 4,
+            "eval_every": 100,
+            "save_every": 100,
+            "deterministic": true
+          },
+          "training_seconds": 25.133611800003564,
+          "parameter_count": 72448,
+          "untrained_test": {
+            "loss": 3.250446115165138,
+            "perplexity": 25.80184794570635,
+            "bits_per_character": 4.689402491025541,
+            "accuracy": 0.018136850783182192,
+            "tokens": 1213
+          },
+          "test": {
+            "loss": 0.3305863524308798,
+            "perplexity": 1.3917839651677242,
+            "bits_per_character": 0.4769352912376014,
+            "accuracy": 0.8672712283594394,
+            "tokens": 1213
+          },
+          "validation_curve": [
+            {
+              "step": 100,
+              "train_loss": 1.186084270477295,
+              "validation": {
+                "loss": 1.0548043251037598,
+                "perplexity": 2.8714132354395634,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 200,
+              "train_loss": 0.7038129568099976,
+              "validation": {
+                "loss": 0.5666252225637436,
+                "perplexity": 1.7623096018746318,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 300,
+              "train_loss": 0.4349244236946106,
+              "validation": {
+                "loss": 0.32035427540540695,
+                "perplexity": 1.3776157332655559,
+                "tokens": 4096
+              }
+            }
+          ],
+          "generation": {
+            "greedy": {
+              "count": 16,
+              "valid_count": 5,
+              "complete_count": 16,
+              "valid_unseen_count": 1,
+              "examples": [
+                {
+                  "prompt": "the red robot ",
+                  "text": "the red robot moves the boox.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red pilot ",
+                  "text": "the red pilot moves the boox.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red artist ",
+                  "text": "the red artist makes the boox.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red baker ",
+                  "text": "the red baker moves the boox.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue robot ",
+                  "text": "the blue robot moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue pilot ",
+                  "text": "the blue pilot makes the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue artist ",
+                  "text": "the blue artist makes the boox.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue baker ",
+                  "text": "the blue baker makes the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green robot ",
+                  "text": "the green robot moves the boox.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green pilot ",
+                  "text": "the green pilot moves the boox.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green artist ",
+                  "text": "the green artist counts the boook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green baker ",
+                  "text": "the green baker moves the boox.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold robot ",
+                  "text": "the gold robot moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": true
+                },
+                {
+                  "prompt": "the gold pilot ",
+                  "text": "the gold pilot mak.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold artist ",
+                  "text": "the gold artist makes the boox.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold baker ",
+                  "text": "the gold baker makes the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                }
+              ]
+            },
+            "sample": {
+              "count": 16,
+              "valid_count": 10,
+              "complete_count": 16,
+              "valid_unseen_count": 3,
+              "examples": [
+                {
+                  "prompt": "the red robot ",
+                  "text": "the red robot finds the cup.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": true
+                },
+                {
+                  "prompt": "the red pilot ",
+                  "text": "the red pilot moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red artist ",
+                  "text": "the red artist makes the ke key.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red baker ",
+                  "text": "the red baker finds the bok.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue robot ",
+                  "text": "the blue robot moves the lamp.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue pilot ",
+                  "text": "the blue pilot finds the bal.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue artist ",
+                  "text": "the blue artist makes the lamp.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": true
+                },
+                {
+                  "prompt": "the blue baker ",
+                  "text": "the blue baker moves the lamp.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green robot ",
+                  "text": "the green robot moves the book.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green pilot ",
+                  "text": "the green pilot counts the key.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green artist ",
+                  "text": "the green artist moves the boox.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green baker ",
+                  "text": "the green baker makes the ke box.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold robot ",
+                  "text": "the gold robot moves the bal.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold pilot ",
+                  "text": "the gold pilot finds the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": true
+                },
+                {
+                  "prompt": "the gold artist ",
+                  "text": "the gold artist makes the lamp.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold baker ",
+                  "text": "the gold baker moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "seed": 29,
+          "train_config": {
+            "steps": 300,
+            "batch_size": 16,
+            "learning_rate": 0.001,
+            "weight_decay": 0.05,
+            "grad_clip": 1.0,
+            "seed": 29,
+            "val_fraction": 0.1,
+            "val_batches": 4,
+            "eval_every": 100,
+            "save_every": 100,
+            "deterministic": true
+          },
+          "training_seconds": 27.134685900004115,
+          "parameter_count": 72448,
+          "untrained_test": {
+            "loss": 3.236580329008173,
+            "perplexity": 25.44655394732341,
+            "bits_per_character": 4.669398390098861,
+            "accuracy": 0.01978565539983512,
+            "tokens": 1213
+          },
+          "test": {
+            "loss": 0.323809460972521,
+            "perplexity": 1.3823838839432294,
+            "bits_per_character": 0.4671583035379844,
+            "accuracy": 0.8730420445177246,
+            "tokens": 1213
+          },
+          "validation_curve": [
+            {
+              "step": 100,
+              "train_loss": 1.1773241758346558,
+              "validation": {
+                "loss": 1.0796658992767334,
+                "perplexity": 2.9436958958268375,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 200,
+              "train_loss": 0.7275357842445374,
+              "validation": {
+                "loss": 0.5740977078676224,
+                "perplexity": 1.7755277592124779,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 300,
+              "train_loss": 0.41713494062423706,
+              "validation": {
+                "loss": 0.31393396854400635,
+                "perplexity": 1.3687993497491955,
+                "tokens": 4096
+              }
+            }
+          ],
+          "generation": {
+            "greedy": {
+              "count": 16,
+              "valid_count": 1,
+              "complete_count": 16,
+              "valid_unseen_count": 0,
+              "examples": [
+                {
+                  "prompt": "the red robot ",
+                  "text": "the red robot moves the boook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red pilot ",
+                  "text": "the red pilot moves the boook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red artist ",
+                  "text": "the red artist moves the booook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red baker ",
+                  "text": "the red baker moves the book.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue robot ",
+                  "text": "the blue robot moves the booook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue pilot ",
+                  "text": "the blue pilot moves the boook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue artist ",
+                  "text": "the blue artist moves the booook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue baker ",
+                  "text": "the blue baker moves the booook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green robot ",
+                  "text": "the green robot moves the boook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green pilot ",
+                  "text": "the green pilot moves the boook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green artist ",
+                  "text": "the green artist moves the booook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green baker ",
+                  "text": "the green baker moves the boook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold robot ",
+                  "text": "the gold robot moves the booook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold pilot ",
+                  "text": "the gold pilot moves the booook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold artist ",
+                  "text": "the gold artist moves the booook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold baker ",
+                  "text": "the gold baker moves the booook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                }
+              ]
+            },
+            "sample": {
+              "count": 16,
+              "valid_count": 8,
+              "complete_count": 16,
+              "valid_unseen_count": 0,
+              "examples": [
+                {
+                  "prompt": "the red robot ",
+                  "text": "the red robot moves the lamp.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red pilot ",
+                  "text": "the red pilot moves the ball.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red artist ",
+                  "text": "the red artist counts the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red baker ",
+                  "text": "the red baker moves the greeen bal.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue robot ",
+                  "text": "the blue robot finds the book.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue pilot ",
+                  "text": "the blue pilot moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue artist ",
+                  "text": "the blue artist counts the book.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue baker ",
+                  "text": "the blue baker finds the booox.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green robot ",
+                  "text": "the green robot finds the booook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green pilot ",
+                  "text": "the green pilot finds the book.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green artist ",
+                  "text": "the green artist counts the key.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green baker ",
+                  "text": "the green baker mall.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold robot ",
+                  "text": "the gold robot finds the bok.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold pilot ",
+                  "text": "the gold pilot makes the booook.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold artist ",
+                  "text": "the gold artist mp.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold baker ",
+                  "text": "the gold baker counts the balll.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "train_config": {
+            "steps": 300,
+            "batch_size": 16,
+            "learning_rate": 0.001,
+            "weight_decay": 0.05,
+            "grad_clip": 1.0,
+            "seed": 43,
+            "val_fraction": 0.1,
+            "val_batches": 4,
+            "eval_every": 100,
+            "save_every": 100,
+            "deterministic": true
+          },
+          "training_seconds": 25.525908399984473,
+          "parameter_count": 72448,
+          "untrained_test": {
+            "loss": 3.2681509774279616,
+            "perplexity": 26.262734032925596,
+            "bits_per_character": 4.714945208011739,
+            "accuracy": 0.018136850783182192,
+            "tokens": 1213
+          },
+          "test": {
+            "loss": 0.3057954218991021,
+            "perplexity": 1.3577045215219012,
+            "bits_per_character": 0.4411695387003829,
+            "accuracy": 0.8796372629843363,
+            "tokens": 1213
+          },
+          "validation_curve": [
+            {
+              "step": 100,
+              "train_loss": 1.1491729021072388,
+              "validation": {
+                "loss": 1.0851822197437286,
+                "perplexity": 2.9599791362404986,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 200,
+              "train_loss": 0.6512888669967651,
+              "validation": {
+                "loss": 0.53713458776474,
+                "perplexity": 1.711096833114369,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 300,
+              "train_loss": 0.40434494614601135,
+              "validation": {
+                "loss": 0.30643949657678604,
+                "perplexity": 1.35857926629423,
+                "tokens": 4096
+              }
+            }
+          ],
+          "generation": {
+            "greedy": {
+              "count": 16,
+              "valid_count": 16,
+              "complete_count": 16,
+              "valid_unseen_count": 3,
+              "examples": [
+                {
+                  "prompt": "the red robot ",
+                  "text": "the red robot moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": true
+                },
+                {
+                  "prompt": "the red pilot ",
+                  "text": "the red pilot moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red artist ",
+                  "text": "the red artist moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red baker ",
+                  "text": "the red baker makes the ball.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue robot ",
+                  "text": "the blue robot moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue pilot ",
+                  "text": "the blue pilot moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue artist ",
+                  "text": "the blue artist makes the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue baker ",
+                  "text": "the blue baker makes the ball.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green robot ",
+                  "text": "the green robot moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green pilot ",
+                  "text": "the green pilot moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": true
+                },
+                {
+                  "prompt": "the green artist ",
+                  "text": "the green artist moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green baker ",
+                  "text": "the green baker makes the ball.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold robot ",
+                  "text": "the gold robot moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": true
+                },
+                {
+                  "prompt": "the gold pilot ",
+                  "text": "the gold pilot moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold artist ",
+                  "text": "the gold artist moves the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold baker ",
+                  "text": "the gold baker makes the ball.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                }
+              ]
+            },
+            "sample": {
+              "count": 16,
+              "valid_count": 7,
+              "complete_count": 16,
+              "valid_unseen_count": 2,
+              "examples": [
+                {
+                  "prompt": "the red robot ",
+                  "text": "the red robot counts the box.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red pilot ",
+                  "text": "the red pilot moves the ke cup.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red artist ",
+                  "text": "the red artist makes the ke ball.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the red baker ",
+                  "text": "the red baker finds the lamp.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue robot ",
+                  "text": "the blue robot counts the k.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue pilot ",
+                  "text": "the blue pilot finds the lamp.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": true
+                },
+                {
+                  "prompt": "the blue artist ",
+                  "text": "the blue artist moves the lovey.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the blue baker ",
+                  "text": "the blue baker mox.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green robot ",
+                  "text": "the green robot moves the cup.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green pilot ",
+                  "text": "the green pilot moves the ke cup.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green artist ",
+                  "text": "the green artist moves the ke ball.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the green baker ",
+                  "text": "the green baker makes the lamp.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold robot ",
+                  "text": "the gold robot counts the bal.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold pilot ",
+                  "text": "the gold pilot finds the ke cup.\n",
+                  "complete": true,
+                  "valid_grammar": false,
+                  "valid_unseen_sentence": false
+                },
+                {
+                  "prompt": "the gold artist ",
+                  "text": "the gold artist makes the book.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": true
+                },
+                {
+                  "prompt": "the gold baker ",
+                  "text": "the gold baker moves the key.\n",
+                  "complete": true,
+                  "valid_grammar": true,
+                  "valid_unseen_sentence": false
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "summary": {
+        "loss": {
+          "mean": 0.3200637451008343,
+          "stdev": 0.012812897787050808,
+          "values": [
+            0.3305863524308798,
+            0.323809460972521,
+            0.3057954218991021
+          ]
+        },
+        "perplexity": {
+          "mean": 1.3772907902109517,
+          "stdev": 0.01760133013799045,
+          "values": [
+            1.3917839651677242,
+            1.3823838839432294,
+            1.3577045215219012
+          ]
+        },
+        "bits_per_character": {
+          "mean": 0.4617543778253229,
+          "stdev": 0.01848510409679538,
+          "values": [
+            0.4769352912376014,
+            0.4671583035379844,
+            0.4411695387003829
+          ]
+        },
+        "accuracy": {
+          "mean": 0.8733168452871668,
+          "stdev": 0.006187595630226816,
+          "values": [
+            0.8672712283594394,
+            0.8730420445177246,
+            0.8796372629843363
+          ]
+        }
+      },
+      "loss_reduction_vs_bigram_percent": 74.1097949597354
+    },
+    "shakespeare": {
+      "source": {
+        "url": "https://raw.githubusercontent.com/karpathy/char-rnn/370cbcd448eb7daf32f21a6be560b70e0b33c4e3/data/tinyshakespeare/input.txt",
+        "sha256": "86c4e6aa9db7c042ec79f339dcb96d42b0075e16b8fc2e86bf0ca57e2dc565ed",
+        "split_policy": "contiguous character offsets: first 90% train, next 5% validation, final 5% test"
+      },
+      "splits": {
+        "train": {
+          "characters": 1003854,
+          "sha256": "a9e24e23a1ec77744dad26844bfd5a09b6e041954e1eef0000e7f24cba6db735"
+        },
+        "validation": {
+          "characters": 55770,
+          "sha256": "c64e90c160750d91a9d2d9b1ace5eab1a440f5a1701d32a8e97a179b7839f1c8"
+        },
+        "test": {
+          "characters": 55770,
+          "sha256": "8b5a8c8af45905547ad03b7aae6980a277a5dd78924a6e6ac64b75d63d7d40bd"
+        }
+      },
+      "vocabulary_size": 65,
+      "baselines": {
+        "uniform": {
+          "loss": 4.174387269895639,
+          "perplexity": 65.0000000000001,
+          "bits_per_character": 6.022367813028457,
+          "accuracy": null,
+          "tokens": 55769
+        },
+        "unigram": {
+          "loss": 3.3619668142967902,
+          "perplexity": 28.8458695914366,
+          "bits_per_character": 4.850292850619246,
+          "accuracy": 0.14595922465886066,
+          "tokens": 55769
+        },
+        "bigram": {
+          "loss": 2.489535450326529,
+          "perplexity": 12.0556743598101,
+          "bits_per_character": 3.5916404483033557,
+          "accuracy": 0.27065215442270796,
+          "tokens": 55769
+        }
+      },
+      "runs": [
+        {
+          "seed": 17,
+          "train_config": {
+            "steps": 1000,
+            "batch_size": 16,
+            "learning_rate": 0.001,
+            "weight_decay": 0.05,
+            "grad_clip": 1.0,
+            "seed": 17,
+            "val_fraction": 0.1,
+            "val_batches": 4,
+            "eval_every": 100,
+            "save_every": 100,
+            "deterministic": true
+          },
+          "training_seconds": 99.71332829998573,
+          "parameter_count": 75008,
+          "untrained_test": {
+            "loss": 4.196626017871686,
+            "perplexity": 66.4617116957027,
+            "bits_per_character": 6.05445154444908,
+            "accuracy": 0.02377665011027632,
+            "tokens": 55769
+          },
+          "test": {
+            "loss": 2.242957443587248,
+            "perplexity": 9.421152654605445,
+            "bits_per_character": 3.2359035807883094,
+            "accuracy": 0.3403145116462551,
+            "tokens": 55769
+          },
+          "validation_curve": [
+            {
+              "step": 100,
+              "train_loss": 2.7006466388702393,
+              "validation": {
+                "loss": 2.6459959745407104,
+                "perplexity": 14.097478823336598,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 200,
+              "train_loss": 2.4925312995910645,
+              "validation": {
+                "loss": 2.5108941197395325,
+                "perplexity": 12.315937061426181,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 300,
+              "train_loss": 2.5623016357421875,
+              "validation": {
+                "loss": 2.483993351459503,
+                "perplexity": 11.989045423217814,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 400,
+              "train_loss": 2.4504544734954834,
+              "validation": {
+                "loss": 2.4352453351020813,
+                "perplexity": 11.418619757999561,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 500,
+              "train_loss": 2.4414920806884766,
+              "validation": {
+                "loss": 2.408718168735504,
+                "perplexity": 11.119698428722652,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 600,
+              "train_loss": 2.396632671356201,
+              "validation": {
+                "loss": 2.3877017498016357,
+                "perplexity": 10.88844080364129,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 700,
+              "train_loss": 2.3917148113250732,
+              "validation": {
+                "loss": 2.3320730328559875,
+                "perplexity": 10.299270143350089,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 800,
+              "train_loss": 2.327814817428589,
+              "validation": {
+                "loss": 2.2912123799324036,
+                "perplexity": 9.886917117798511,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 900,
+              "train_loss": 2.3254969120025635,
+              "validation": {
+                "loss": 2.2694475650787354,
+                "perplexity": 9.67405505177507,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 1000,
+              "train_loss": 2.2757863998413086,
+              "validation": {
+                "loss": 2.2360488176345825,
+                "perplexity": 9.356289749633346,
+                "tokens": 4096
+              }
+            }
+          ],
+          "samples": [
+            {
+              "prompt": "First Citizen:\n",
+              "strategy": "greedy",
+              "text": "First Citizen:\nThe the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the "
+            },
+            {
+              "prompt": "First Citizen:\n",
+              "strategy": "sample",
+              "text": "First Citizen:\nThe then ay same ser thit be hit marour whavers fot thim thes\nAst may han thalld sou ther oshe if war ast the thould by.\n\n\n\nAUSINGHALEND INEO:\nAnd to hat the my"
+            },
+            {
+              "prompt": "ROMEO:\n",
+              "strategy": "greedy",
+              "text": "ROMEO:\nThat the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the"
+            },
+            {
+              "prompt": "ROMEO:\n",
+              "strategy": "sample",
+              "text": "ROMEO:\nSor, shend wand the heat,\nWit athis, the at my ave the thearth burer\nTir thit thind he mands and ould somer fitherd.\n\n\nHUTIO:\n\nShise mam hing so mastel ily ise "
+            },
+            {
+              "prompt": "To be, or not to be",
+              "strategy": "greedy",
+              "text": "To be, or not to be the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the"
+            },
+            {
+              "prompt": "To be, or not to be",
+              "strategy": "sample",
+              "text": "To be, or not to be alot mo ward hand and busil of onend the to be tham.\n\n\nTo and she by theate mour may arte and tou mouge ive, sthal ther by sord\nBat sele mas my my tanereres sh"
+            }
+          ]
+        },
+        {
+          "seed": 29,
+          "train_config": {
+            "steps": 1000,
+            "batch_size": 16,
+            "learning_rate": 0.001,
+            "weight_decay": 0.05,
+            "grad_clip": 1.0,
+            "seed": 29,
+            "val_fraction": 0.1,
+            "val_batches": 4,
+            "eval_every": 100,
+            "save_every": 100,
+            "deterministic": true
+          },
+          "training_seconds": 105.20692739999504,
+          "parameter_count": 75008,
+          "untrained_test": {
+            "loss": 4.202448274387761,
+            "perplexity": 66.84979750094791,
+            "bits_per_character": 6.062851285051605,
+            "accuracy": 0.0248883788484642,
+            "tokens": 55769
+          },
+          "test": {
+            "loss": 2.2506721825731257,
+            "perplexity": 9.494115470945534,
+            "bits_per_character": 3.247033596464988,
+            "accuracy": 0.3362979433018344,
+            "tokens": 55769
+          },
+          "validation_curve": [
+            {
+              "step": 100,
+              "train_loss": 2.71144700050354,
+              "validation": {
+                "loss": 2.658404767513275,
+                "perplexity": 14.273501374559139,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 200,
+              "train_loss": 2.5261149406433105,
+              "validation": {
+                "loss": 2.5191428661346436,
+                "perplexity": 12.417948256685344,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 300,
+              "train_loss": 2.529280424118042,
+              "validation": {
+                "loss": 2.4820363521575928,
+                "perplexity": 11.965605812825434,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 400,
+              "train_loss": 2.501906394958496,
+              "validation": {
+                "loss": 2.4501149654388428,
+                "perplexity": 11.589679055174253,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 500,
+              "train_loss": 2.4207050800323486,
+              "validation": {
+                "loss": 2.4048826098442078,
+                "perplexity": 11.077129859859548,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 600,
+              "train_loss": 2.480928659439087,
+              "validation": {
+                "loss": 2.3678667545318604,
+                "perplexity": 10.674596443706498,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 700,
+              "train_loss": 2.3347342014312744,
+              "validation": {
+                "loss": 2.323056161403656,
+                "perplexity": 10.206820378613777,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 800,
+              "train_loss": 2.343402147293091,
+              "validation": {
+                "loss": 2.2806337475776672,
+                "perplexity": 9.782878320804258,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 900,
+              "train_loss": 2.2821404933929443,
+              "validation": {
+                "loss": 2.253985822200775,
+                "perplexity": 9.525627729499632,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 1000,
+              "train_loss": 2.3017122745513916,
+              "validation": {
+                "loss": 2.2193856835365295,
+                "perplexity": 9.20167638794399,
+                "tokens": 4096
+              }
+            }
+          ],
+          "samples": [
+            {
+              "prompt": "First Citizen:\n",
+              "strategy": "greedy",
+              "text": "First Citizen:\nThe the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the "
+            },
+            {
+              "prompt": "First Citizen:\n",
+              "strategy": "sample",
+              "text": "First Citizen:\nThit the sourr il there thing whe shis healllses\nHis ond this the and ide henthe bee will menthe wan my blear\nTors an bous hat tharer sond or bram we my beneand"
+            },
+            {
+              "prompt": "ROMEO:\n",
+              "strategy": "greedy",
+              "text": "ROMEO:\nThe the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the "
+            },
+            {
+              "prompt": "ROMEO:\n",
+              "strategy": "sample",
+              "text": "ROMEO:\nSat hel bor brof what wir sheeat in bene fave so our,\nThon thas and this bullle home wis ingheande, that\nWhe the and this stha and buth thery ivers than wheller"
+            },
+            {
+              "prompt": "To be, or not to be",
+              "strategy": "greedy",
+              "text": "To be, or not to beand the the the the the the the the the the\nThe the the the the the the the the the the the the the the the the the the the the the the the the the the the the "
+            },
+            {
+              "prompt": "To be, or not to be",
+              "strategy": "sample",
+              "text": "To be, or not to bellll mar hean thim the ou songrd\nAnd at hererd beand and her heat bend site thit ge has the thas\nHe treand sing amelouns head the mol it heand his sheat,\nThe am"
+            }
+          ]
+        },
+        {
+          "seed": 43,
+          "train_config": {
+            "steps": 1000,
+            "batch_size": 16,
+            "learning_rate": 0.001,
+            "weight_decay": 0.05,
+            "grad_clip": 1.0,
+            "seed": 43,
+            "val_fraction": 0.1,
+            "val_batches": 4,
+            "eval_every": 100,
+            "save_every": 100,
+            "deterministic": true
+          },
+          "training_seconds": 77.44674600000144,
+          "parameter_count": 75008,
+          "untrained_test": {
+            "loss": 4.199903542504371,
+            "perplexity": 66.67989895465671,
+            "bits_per_character": 6.059180012983046,
+            "accuracy": 0.026304936434219727,
+            "tokens": 55769
+          },
+          "test": {
+            "loss": 2.242905607850926,
+            "perplexity": 9.420664314877426,
+            "bits_per_character": 3.235828797628577,
+            "accuracy": 0.3400993383420897,
+            "tokens": 55769
+          },
+          "validation_curve": [
+            {
+              "step": 100,
+              "train_loss": 2.6777520179748535,
+              "validation": {
+                "loss": 2.644502103328705,
+                "perplexity": 14.076434728058205,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 200,
+              "train_loss": 2.5496644973754883,
+              "validation": {
+                "loss": 2.5023558139801025,
+                "perplexity": 12.21122748241577,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 300,
+              "train_loss": 2.570456027984619,
+              "validation": {
+                "loss": 2.454891622066498,
+                "perplexity": 11.645171400874501,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 400,
+              "train_loss": 2.4954981803894043,
+              "validation": {
+                "loss": 2.4150814414024353,
+                "perplexity": 11.190681705253768,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 500,
+              "train_loss": 2.511279821395874,
+              "validation": {
+                "loss": 2.3967572450637817,
+                "perplexity": 10.987488815307387,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 600,
+              "train_loss": 2.4667301177978516,
+              "validation": {
+                "loss": 2.339707314968109,
+                "perplexity": 10.378198574785902,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 700,
+              "train_loss": 2.4046790599823,
+              "validation": {
+                "loss": 2.302535653114319,
+                "perplexity": 9.999505613424038,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 800,
+              "train_loss": 2.433685302734375,
+              "validation": {
+                "loss": 2.263814866542816,
+                "perplexity": 9.619717194100238,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 900,
+              "train_loss": 2.3019816875457764,
+              "validation": {
+                "loss": 2.2375121116638184,
+                "perplexity": 9.36999077442892,
+                "tokens": 4096
+              }
+            },
+            {
+              "step": 1000,
+              "train_loss": 2.2931365966796875,
+              "validation": {
+                "loss": 2.211733400821686,
+                "perplexity": 9.131531286140715,
+                "tokens": 4096
+              }
+            }
+          ],
+          "samples": [
+            {
+              "prompt": "First Citizen:\n",
+              "strategy": "greedy",
+              "text": "First Citizen:\nAnd the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the "
+            },
+            {
+              "prompt": "First Citizen:\n",
+              "strategy": "sample",
+              "text": "First Citizen:\nAnd tharer mor, thoure, to mashere thel doult,\nAnd so be he that ate thand ate to mand shat whit shards an misth heerd oour at,\nAn toulle wound diting alle hart"
+            },
+            {
+              "prompt": "ROMEO:\n",
+              "strategy": "greedy",
+              "text": "ROMEO:\nAnd the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the "
+            },
+            {
+              "prompt": "ROMEO:\n",
+              "strategy": "sample",
+              "text": "ROMEO:\nANG whir mothe the hean me arods,\nAnctis the allof theng dit is, and burest hit thit tof\nI hes me tho oust willd that shends this our it.\n\n\n\n\n\nShar wis is helll"
+            },
+            {
+              "prompt": "To be, or not to be",
+              "strategy": "greedy",
+              "text": "To be, or not to be the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the"
+            },
+            {
+              "prompt": "To be, or not to be",
+              "strategy": "sample",
+              "text": "To be, or not to bear mediter fe heans.\n\nGot I'ld mard moret wath tour ononcin there men, wat aset shim me tond\nInd be thas thim at thall my mof arthor that dave do tho deind a he"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "loss": {
+          "mean": 2.2455117446704334,
+          "stdev": 0.004469145471625339,
+          "values": [
+            2.242957443587248,
+            2.2506721825731257,
+            2.242905607850926
+          ]
+        },
+        "perplexity": {
+          "mean": 9.445310813476135,
+          "stdev": 0.042266778466681414,
+          "values": [
+            9.421152654605445,
+            9.494115470945534,
+            9.420664314877426
+          ]
+        },
+        "bits_per_character": {
+          "mean": 3.2395886582939584,
+          "stdev": 0.006447614008925199,
+          "values": [
+            3.2359035807883094,
+            3.247033596464988,
+            3.235828797628577
+          ]
+        },
+        "accuracy": {
+          "mean": 0.3389039310967264,
+          "stdev": 0.0022594145653356715,
+          "values": [
+            0.3403145116462551,
+            0.3362979433018344,
+            0.3400993383420897
+          ]
+        }
+      },
+      "loss_reduction_vs_bigram_percent": 9.801977538584127
+    }
+  },
+  "cache_sweep": [
+    {
+      "torch_version": "2.14.1+cpu",
+      "python_version": "3.12.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "device": "cpu",
+      "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "cpu_threads": 1,
+      "dtype": "torch.float32",
+      "batch_size": 1,
+      "prompt_tokens": 8,
+      "new_tokens": 16,
+      "context_length": 64,
+      "model_config": {
+        "vocab_size": 25,
+        "context_length": 64,
+        "d_model": 64,
+        "num_layers": 2,
+        "num_heads": 4,
+        "d_ff": 128,
+        "sep_token_id": -1,
+        "dropout": 0.1,
+        "bias": true
+      },
+      "parameter_count": 72448,
+      "repeats": 5,
+      "warmup": 2,
+      "outputs_equal": true,
+      "includes_prefill": true,
+      "context_rollover": false,
+      "speedup": 1.0488367673889893,
+      "uncached": {
+        "seconds": [
+          0.036875099991448224,
+          0.03986300001270138,
+          0.03196989998104982,
+          0.028818999999202788,
+          0.03208999999333173
+        ],
+        "median_seconds": 0.03208999999333173,
+        "generated_tokens_per_second": 498.59769408927343,
+        "peak_cuda_allocated_bytes": null
+      },
+      "cached": {
+        "seconds": [
+          0.030595800024457276,
+          0.030118499998934567,
+          0.03386789999785833,
+          0.03562329997657798,
+          0.027818099973956123
+        ],
+        "median_seconds": 0.030595800024457276,
+        "generated_tokens_per_second": 522.9475936961977,
+        "peak_cuda_allocated_bytes": null
+      }
+    },
+    {
+      "torch_version": "2.14.1+cpu",
+      "python_version": "3.12.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "device": "cpu",
+      "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "cpu_threads": 1,
+      "dtype": "torch.float32",
+      "batch_size": 1,
+      "prompt_tokens": 8,
+      "new_tokens": 48,
+      "context_length": 64,
+      "model_config": {
+        "vocab_size": 25,
+        "context_length": 64,
+        "d_model": 64,
+        "num_layers": 2,
+        "num_heads": 4,
+        "d_ff": 128,
+        "sep_token_id": -1,
+        "dropout": 0.1,
+        "bias": true
+      },
+      "parameter_count": 72448,
+      "repeats": 5,
+      "warmup": 2,
+      "outputs_equal": true,
+      "includes_prefill": true,
+      "context_rollover": false,
+      "speedup": 0.692976536831267,
+      "uncached": {
+        "seconds": [
+          0.14222989999689162,
+          0.12233460001880303,
+          0.12698569998610765,
+          0.30045479998807423,
+          0.3123201999987941
+        ],
+        "median_seconds": 0.14222989999689162,
+        "generated_tokens_per_second": 337.4817812643405,
+        "peak_cuda_allocated_bytes": null
+      },
+      "cached": {
+        "seconds": [
+          0.12405670000589453,
+          0.15013870000257157,
+          0.2111138999753166,
+          0.24232830002438277,
+          0.2052448999893386
+        ],
+        "median_seconds": 0.2052448999893386,
+        "generated_tokens_per_second": 233.86695602420986,
+        "peak_cuda_allocated_bytes": null
+      }
+    },
+    {
+      "torch_version": "2.14.1+cpu",
+      "python_version": "3.12.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "device": "cpu",
+      "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "cpu_threads": 1,
+      "dtype": "torch.float32",
+      "batch_size": 1,
+      "prompt_tokens": 8,
+      "new_tokens": 80,
+      "context_length": 64,
+      "model_config": {
+        "vocab_size": 25,
+        "context_length": 64,
+        "d_model": 64,
+        "num_layers": 2,
+        "num_heads": 4,
+        "d_ff": 128,
+        "sep_token_id": -1,
+        "dropout": 0.1,
+        "bias": true
+      },
+      "parameter_count": 72448,
+      "repeats": 5,
+      "warmup": 2,
+      "outputs_equal": true,
+      "includes_prefill": true,
+      "context_rollover": true,
+      "speedup": 1.109426613141522,
+      "uncached": {
+        "seconds": [
+          0.5672469999990426,
+          0.7035846999788191,
+          0.7421252999920398,
+          0.7153817999933381,
+          0.8087457000219729
+        ],
+        "median_seconds": 0.7153817999933381,
+        "generated_tokens_per_second": 111.82839708914176,
+        "peak_cuda_allocated_bytes": null
+      },
+      "cached": {
+        "seconds": [
+          0.4209069999924395,
+          0.5205323999980465,
+          0.6448211999959312,
+          0.7384250999893993,
+          0.9180129999876954
+        ],
+        "median_seconds": 0.6448211999959312,
+        "generated_tokens_per_second": 124.06539983565179,
+        "peak_cuda_allocated_bytes": null
+      }
+    },
+    {
+      "torch_version": "2.14.1+cpu",
+      "python_version": "3.12.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "device": "cpu",
+      "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "cpu_threads": 1,
+      "dtype": "torch.float32",
+      "batch_size": 1,
+      "prompt_tokens": 32,
+      "new_tokens": 16,
+      "context_length": 64,
+      "model_config": {
+        "vocab_size": 25,
+        "context_length": 64,
+        "d_model": 64,
+        "num_layers": 2,
+        "num_heads": 4,
+        "d_ff": 128,
+        "sep_token_id": -1,
+        "dropout": 0.1,
+        "bias": true
+      },
+      "parameter_count": 72448,
+      "repeats": 5,
+      "warmup": 2,
+      "outputs_equal": true,
+      "includes_prefill": true,
+      "context_rollover": false,
+      "speedup": 1.2489405734114438,
+      "uncached": {
+        "seconds": [
+          0.12155189999612048,
+          0.15032000001519918,
+          0.16174840001622215,
+          0.1229280999978073,
+          0.12226460000965744
+        ],
+        "median_seconds": 0.1229280999978073,
+        "generated_tokens_per_second": 130.15738468491253,
+        "peak_cuda_allocated_bytes": null
+      },
+      "cached": {
+        "seconds": [
+          0.0984259000106249,
+          0.12642839999170974,
+          0.08776150000630878,
+          0.09848089999286458,
+          0.09023900001193397
+        ],
+        "median_seconds": 0.0984259000106249,
+        "generated_tokens_per_second": 162.55883866210854,
+        "peak_cuda_allocated_bytes": null
+      }
+    },
+    {
+      "torch_version": "2.14.1+cpu",
+      "python_version": "3.12.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "device": "cpu",
+      "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "cpu_threads": 1,
+      "dtype": "torch.float32",
+      "batch_size": 1,
+      "prompt_tokens": 32,
+      "new_tokens": 48,
+      "context_length": 64,
+      "model_config": {
+        "vocab_size": 25,
+        "context_length": 64,
+        "d_model": 64,
+        "num_layers": 2,
+        "num_heads": 4,
+        "d_ff": 128,
+        "sep_token_id": -1,
+        "dropout": 0.1,
+        "bias": true
+      },
+      "parameter_count": 72448,
+      "repeats": 5,
+      "warmup": 2,
+      "outputs_equal": true,
+      "includes_prefill": true,
+      "context_rollover": true,
+      "speedup": 0.9878112756965228,
+      "uncached": {
+        "seconds": [
+          0.4668002999969758,
+          0.4231100000033621,
+          0.3986264000122901,
+          0.3147406000061892,
+          0.2989213999826461
+        ],
+        "median_seconds": 0.3986264000122901,
+        "generated_tokens_per_second": 120.41349995514624,
+        "peak_cuda_allocated_bytes": null
+      },
+      "cached": {
+        "seconds": [
+          0.403545099979965,
+          0.4170087000238709,
+          0.4046441000245977,
+          0.32555099998717196,
+          0.22489219999988563
+        ],
+        "median_seconds": 0.403545099979965,
+        "generated_tokens_per_second": 118.9458130017762,
+        "peak_cuda_allocated_bytes": null
+      }
+    },
+    {
+      "torch_version": "2.14.1+cpu",
+      "python_version": "3.12.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "device": "cpu",
+      "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "cpu_threads": 1,
+      "dtype": "torch.float32",
+      "batch_size": 1,
+      "prompt_tokens": 32,
+      "new_tokens": 80,
+      "context_length": 64,
+      "model_config": {
+        "vocab_size": 25,
+        "context_length": 64,
+        "d_model": 64,
+        "num_layers": 2,
+        "num_heads": 4,
+        "d_ff": 128,
+        "sep_token_id": -1,
+        "dropout": 0.1,
+        "bias": true
+      },
+      "parameter_count": 72448,
+      "repeats": 5,
+      "warmup": 2,
+      "outputs_equal": true,
+      "includes_prefill": true,
+      "context_rollover": true,
+      "speedup": 1.0248875209718928,
+      "uncached": {
+        "seconds": [
+          0.5280420999915805,
+          0.4020199000078719,
+          0.40838090001489036,
+          0.49708190001547337,
+          0.4895776999765076
+        ],
+        "median_seconds": 0.4895776999765076,
+        "generated_tokens_per_second": 163.4061355405665,
+        "peak_cuda_allocated_bytes": null
+      },
+      "cached": {
+        "seconds": [
+          0.5700981999980286,
+          0.3283948000171222,
+          0.4776891999936197,
+          0.5512032000115141,
+          0.3277485999860801
+        ],
+        "median_seconds": 0.4776891999936197,
+        "generated_tokens_per_second": 167.4729091657683,
+        "peak_cuda_allocated_bytes": null
+      }
+    },
+    {
+      "torch_version": "2.14.1+cpu",
+      "python_version": "3.12.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "device": "cpu",
+      "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "cpu_threads": 1,
+      "dtype": "torch.float32",
+      "batch_size": 4,
+      "prompt_tokens": 8,
+      "new_tokens": 16,
+      "context_length": 64,
+      "model_config": {
+        "vocab_size": 25,
+        "context_length": 64,
+        "d_model": 64,
+        "num_layers": 2,
+        "num_heads": 4,
+        "d_ff": 128,
+        "sep_token_id": -1,
+        "dropout": 0.1,
+        "bias": true
+      },
+      "parameter_count": 72448,
+      "repeats": 5,
+      "warmup": 2,
+      "outputs_equal": true,
+      "includes_prefill": true,
+      "context_rollover": false,
+      "speedup": 1.898982418138427,
+      "uncached": {
+        "seconds": [
+          0.07358310002018698,
+          0.08281709998846054,
+          0.07832120000966825,
+          0.053501499991398305,
+          0.0539336999936495
+        ],
+        "median_seconds": 0.07358310002018698,
+        "generated_tokens_per_second": 869.7649321983183,
+        "peak_cuda_allocated_bytes": null
+      },
+      "cached": {
+        "seconds": [
+          0.04453079999075271,
+          0.03874869999708608,
+          0.03748040000209585,
+          0.03403209999669343,
+          0.07292679999954998
+        ],
+        "median_seconds": 0.03874869999708608,
+        "generated_tokens_per_second": 1651.6683141579674,
+        "peak_cuda_allocated_bytes": null
+      }
+    },
+    {
+      "torch_version": "2.14.1+cpu",
+      "python_version": "3.12.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "device": "cpu",
+      "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "cpu_threads": 1,
+      "dtype": "torch.float32",
+      "batch_size": 4,
+      "prompt_tokens": 8,
+      "new_tokens": 48,
+      "context_length": 64,
+      "model_config": {
+        "vocab_size": 25,
+        "context_length": 64,
+        "d_model": 64,
+        "num_layers": 2,
+        "num_heads": 4,
+        "d_ff": 128,
+        "sep_token_id": -1,
+        "dropout": 0.1,
+        "bias": true
+      },
+      "parameter_count": 72448,
+      "repeats": 5,
+      "warmup": 2,
+      "outputs_equal": true,
+      "includes_prefill": true,
+      "context_rollover": false,
+      "speedup": 1.5770610723353748,
+      "uncached": {
+        "seconds": [
+          0.23840639999252744,
+          0.3672149000049103,
+          0.46678660000907257,
+          0.27837439998984337,
+          0.3338837000192143
+        ],
+        "median_seconds": 0.3338837000192143,
+        "generated_tokens_per_second": 575.0505340301153,
+        "peak_cuda_allocated_bytes": null
+      },
+      "cached": {
+        "seconds": [
+          0.20693709998158738,
+          0.21171260002302006,
+          0.3214243999973405,
+          0.24082479998469353,
+          0.1919878000044264
+        ],
+        "median_seconds": 0.21171260002302006,
+        "generated_tokens_per_second": 906.8898118445635,
+        "peak_cuda_allocated_bytes": null
+      }
+    },
+    {
+      "torch_version": "2.14.1+cpu",
+      "python_version": "3.12.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "device": "cpu",
+      "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "cpu_threads": 1,
+      "dtype": "torch.float32",
+      "batch_size": 4,
+      "prompt_tokens": 8,
+      "new_tokens": 80,
+      "context_length": 64,
+      "model_config": {
+        "vocab_size": 25,
+        "context_length": 64,
+        "d_model": 64,
+        "num_layers": 2,
+        "num_heads": 4,
+        "d_ff": 128,
+        "sep_token_id": -1,
+        "dropout": 0.1,
+        "bias": true
+      },
+      "parameter_count": 72448,
+      "repeats": 5,
+      "warmup": 2,
+      "outputs_equal": true,
+      "includes_prefill": true,
+      "context_rollover": true,
+      "speedup": 1.6966162249286298,
+      "uncached": {
+        "seconds": [
+          0.47749540000222623,
+          0.8798469000030309,
+          0.8422047999920323,
+          0.837168300000485,
+          0.8024750000040513
+        ],
+        "median_seconds": 0.837168300000485,
+        "generated_tokens_per_second": 382.24094247215834,
+        "peak_cuda_allocated_bytes": null
+      },
+      "cached": {
+        "seconds": [
+          0.33509020000929013,
+          0.44275550000020303,
+          0.4981635000149254,
+          0.4934341000043787,
+          0.715639200003352
+        ],
+        "median_seconds": 0.4934341000043787,
+        "generated_tokens_per_second": 648.5161848302748,
+        "peak_cuda_allocated_bytes": null
+      }
+    },
+    {
+      "torch_version": "2.14.1+cpu",
+      "python_version": "3.12.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "device": "cpu",
+      "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "cpu_threads": 1,
+      "dtype": "torch.float32",
+      "batch_size": 4,
+      "prompt_tokens": 32,
+      "new_tokens": 16,
+      "context_length": 64,
+      "model_config": {
+        "vocab_size": 25,
+        "context_length": 64,
+        "d_model": 64,
+        "num_layers": 2,
+        "num_heads": 4,
+        "d_ff": 128,
+        "sep_token_id": -1,
+        "dropout": 0.1,
+        "bias": true
+      },
+      "parameter_count": 72448,
+      "repeats": 5,
+      "warmup": 2,
+      "outputs_equal": true,
+      "includes_prefill": true,
+      "context_rollover": false,
+      "speedup": 2.112285748828364,
+      "uncached": {
+        "seconds": [
+          0.15884090002509765,
+          0.15259109999169596,
+          0.1672538999991957,
+          0.14741860001231544,
+          0.10464229999342933
+        ],
+        "median_seconds": 0.15259109999169596,
+        "generated_tokens_per_second": 419.421578345545,
+        "peak_cuda_allocated_bytes": null
+      },
+      "cached": {
+        "seconds": [
+          0.1250282000110019,
+          0.1068770999845583,
+          0.06592940000700764,
+          0.07223979997797869,
+          0.037786200002301484
+        ],
+        "median_seconds": 0.07223979997797869,
+        "generated_tokens_per_second": 885.9382226903939,
+        "peak_cuda_allocated_bytes": null
+      }
+    },
+    {
+      "torch_version": "2.14.1+cpu",
+      "python_version": "3.12.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "device": "cpu",
+      "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "cpu_threads": 1,
+      "dtype": "torch.float32",
+      "batch_size": 4,
+      "prompt_tokens": 32,
+      "new_tokens": 48,
+      "context_length": 64,
+      "model_config": {
+        "vocab_size": 25,
+        "context_length": 64,
+        "d_model": 64,
+        "num_layers": 2,
+        "num_heads": 4,
+        "d_ff": 128,
+        "sep_token_id": -1,
+        "dropout": 0.1,
+        "bias": true
+      },
+      "parameter_count": 72448,
+      "repeats": 5,
+      "warmup": 2,
+      "outputs_equal": true,
+      "includes_prefill": true,
+      "context_rollover": true,
+      "speedup": 1.5182618674280344,
+      "uncached": {
+        "seconds": [
+          0.29396479998831637,
+          0.36124659999040887,
+          0.3142994999943767,
+          0.27579419998801313,
+          0.267249600001378
+        ],
+        "median_seconds": 0.29396479998831637,
+        "generated_tokens_per_second": 653.1394235215612,
+        "peak_cuda_allocated_bytes": null
+      },
+      "cached": {
+        "seconds": [
+          0.1875799000263214,
+          0.21606979999342002,
+          0.19946669999626465,
+          0.19361930000013672,
+          0.1722287000156939
+        ],
+        "median_seconds": 0.19361930000013672,
+        "generated_tokens_per_second": 991.6366808467153,
+        "peak_cuda_allocated_bytes": null
+      }
+    },
+    {
+      "torch_version": "2.14.1+cpu",
+      "python_version": "3.12.5",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "device": "cpu",
+      "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "cpu_threads": 1,
+      "dtype": "torch.float32",
+      "batch_size": 4,
+      "prompt_tokens": 32,
+      "new_tokens": 80,
+      "context_length": 64,
+      "model_config": {
+        "vocab_size": 25,
+        "context_length": 64,
+        "d_model": 64,
+        "num_layers": 2,
+        "num_heads": 4,
+        "d_ff": 128,
+        "sep_token_id": -1,
+        "dropout": 0.1,
+        "bias": true
+      },
+      "parameter_count": 72448,
+      "repeats": 5,
+      "warmup": 2,
+      "outputs_equal": true,
+      "includes_prefill": true,
+      "context_rollover": true,
+      "speedup": 1.2875300074907203,
+      "uncached": {
+        "seconds": [
+          0.48331310000503436,
+          0.512819399998989,
+          0.5063507000159007,
+          0.47603069999604486,
+          0.49455740000121295
+        ],
+        "median_seconds": 0.49455740000121295,
+        "generated_tokens_per_second": 647.0431945800733,
+        "peak_cuda_allocated_bytes": null
+      },
+      "cached": {
+        "seconds": [
+          0.38488240001606755,
+          0.37685749999945983,
+          0.3760302000155207,
+          0.3841132999805268,
+          0.3884235000004992
+        ],
+        "median_seconds": 0.3841132999805268,
+        "generated_tokens_per_second": 833.0875291645015,
+        "peak_cuda_allocated_bytes": null
+      }
+    }
+  ]
+}

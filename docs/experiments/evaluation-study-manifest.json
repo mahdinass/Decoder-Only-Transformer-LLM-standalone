@@ -1,0 +1,30 @@
+{
+  "files": [
+    {
+      "path": "docs/experiments/evaluation-study.json",
+      "sha256": "6532aa611a1bd222661fc91967e0c6d6285aebd7d8e8501fce02d89dc4ed43f8"
+    },
+    {
+      "path": "docs/images/cache-sweep.png",
+      "sha256": "4c08c285046769aecdfeb148d51c40e7f730ad03ec47ab1ccf7dcb37779e7e7a"
+    },
+    {
+      "path": "docs/images/cache-sweep.svg",
+      "sha256": "2c5fa0ab488e277bee74a8b923540117b751cc93bd32df9033f9fb01fd93bd32"
+    },
+    {
+      "path": "docs/images/evaluation-study.png",
+      "sha256": "99c405cd1900394d3684ec34633a0744d909dca76846e8d2dc310cc9f16fc091"
+    },
+    {
+      "path": "docs/images/evaluation-study.svg",
+      "sha256": "1b13a76d33ce536941e97939027d40e5ba1d75eb3e440472c1668a6681644a36"
+    }
+  ],
+  "plot_generator": "scripts/plot_evaluation_study.py",
+  "plot_generator_sha256": "89b26328d7406b86f6de4aa0a3bbc85dcf8bc3f2f35a4d15db6b9edb6ee20217",
+  "plot_environment": {
+    "matplotlib": "3.11.2",
+    "numpy": "2.5.4"
+  }
+}

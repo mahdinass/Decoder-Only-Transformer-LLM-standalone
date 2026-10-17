@@ -5,3 +5,8 @@
 /docs/experiments/cuda-2026-10-17/* -text
 /scripts/validate_cuda.py text eol=lf
 /tests/test_cuda.py text eol=lf
+
+/scripts/run_evaluation_study.py text eol=lf
+/scripts/plot_evaluation_study.py text eol=lf
+/docs/experiments/evaluation-study*.json -text
+/docs/images/* -text

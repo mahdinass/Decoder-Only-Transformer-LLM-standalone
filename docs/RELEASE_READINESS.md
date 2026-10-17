@@ -9,8 +9,8 @@ or certify behavior on untested hardware.
 | Model behavior | Baseline parameter/logit/beam comparison and regression tests |
 | Reusable package | Configurable model, training, generation, evaluation and CLI |
 | Reproducibility | Seeded sampling, data/source hashes, optimizer/RNG resume and split policies |
-| Findings | Three-seed generated-grammar experiment and raw cache timings |
-| Tests | 61 passed on Python 3.12/PyTorch 2.14 and Python 3.11/PyTorch 2.10, CPU |
+| Findings | Three-seed grammar and Tiny Shakespeare comparisons, baselines, learning curves, generation checks and cache sweeps |
+| Tests | Current CPU suite: 65 passed, nine expected CUDA skips; minimum/current dependencies checked in CI |
 | CUDA | 70 passed with zero skips on RTX A5000 / PyTorch 2.10.0+cu128; raw evidence retained |
 | Packaging | Wheel/source builds, archive inspection and installed-wheel smoke check |
 | Security | Dedicated history/source scans plus all-object review; no detected credential values |
@@ -19,7 +19,7 @@ or certify behavior on untested hardware.
 | Source history | One initial snapshot commit; original repository retained privately; contributor credits preserved |
 | License | MIT grant for Mahdi's contributions; retained component scope recorded in NOTICE |
 
-See [VALIDATION.md](VALIDATION.md), [EXPERIMENTS.md](EXPERIMENTS.md),
+See [EVALUATION.md](EVALUATION.md), [VALIDATION.md](VALIDATION.md), [EXPERIMENTS.md](EXPERIMENTS.md),
 [AUDIT.md](AUDIT.md) and [NOTICE](../NOTICE).
 
 The historical corpus and plot are absent from this repository and package

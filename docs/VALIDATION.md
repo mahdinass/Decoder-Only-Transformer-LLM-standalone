@@ -17,6 +17,18 @@ The reference-experiment tests were rerun after the final fingerprint-format
 change: 2 passed. The CPU wheels emitted an optional NumPy-initialization warning;
 none of the tested operations required NumPy.
 
+## Evaluation and namespace update (2026-10-18)
+
+The standalone tree passes 65 CPU cases with nine expected CUDA skips. Four added
+cases verify smoothed baseline math, finite unseen-transition scores, scoring
+without refitting, agreement with token-weighted model evaluation, preserved
+training mode and corpus checksum rejection. Compatibility imports and commands
+now use `decoder_llm.compat`; packaging checks require that namespace.
+
+The earlier CUDA record retains its original tested source hashes. The namespace
+move and additional evaluation utilities do not change the model, training,
+generation or cache implementation measured in that run.
+
 ## Behavior covered
 
 Tests cover configuration and input validation, causal prefix invariance, cache
