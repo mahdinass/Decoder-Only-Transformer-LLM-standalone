@@ -1,0 +1,319 @@
+{
+  "experiment": "synthetic-grammar-v1",
+  "environment": {
+    "python": "3.12.5",
+    "torch": "2.14.1+cpu",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "cuda_runtime": null,
+    "git_revision": "367c87324c20c2c0596f7f10a83f96d41bf19f37",
+    "git_dirty": true,
+    "cpu_threads": 1
+  },
+  "source_sha256": [
+    {
+      "path": "decoder_llm/__init__.py",
+      "sha256": "8e045863b077854f35e0374f903f6b702be5326fd146afa9f7af6ac73bd35354"
+    },
+    {
+      "path": "decoder_llm/__main__.py",
+      "sha256": "c13eb66970ae37b8b044f428b309e67868814b90a8bb408806f3316ce4dfbc5b"
+    },
+    {
+      "path": "decoder_llm/benchmark.py",
+      "sha256": "24cded72ce71536e1e08d92f817c85ef16ebf6a54acc934a7575f04e5b29428a"
+    },
+    {
+      "path": "decoder_llm/checkpoint.py",
+      "sha256": "053eea256759c26fc910e014434ae4568ba2ed6d0a79d30fb80012c45bf8a694"
+    },
+    {
+      "path": "decoder_llm/cli.py",
+      "sha256": "732f1ccf8bbd23dfff0105a0c4c22670200d5ffed5c7f17bc8ce10c1a413f3c4"
+    },
+    {
+      "path": "decoder_llm/data.py",
+      "sha256": "b819a28ec14c714de50215207ad943fe82beb06efcfe9544f1eebb796c5ff065"
+    },
+    {
+      "path": "decoder_llm/evaluation.py",
+      "sha256": "c647eefee6a273fdfb07c72450078e6365c7b5cb6a7e8d7cd189dace2dc874d2"
+    },
+    {
+      "path": "decoder_llm/experiment.py",
+      "sha256": "fc706788b0c25b1d0a3dc1b77ffc02f55b5f796f97b95ecadecad42779929596"
+    },
+    {
+      "path": "decoder_llm/generation.py",
+      "sha256": "e6f586d26ebf582bfffa1611c7957c0edc8311eb67a0f425ecb6c0653160fcd7"
+    },
+    {
+      "path": "decoder_llm/metrics.py",
+      "sha256": "10392c810340fcd01b45ec15f1fef6450c1022465905ca0ce1177e06fdf14c91"
+    },
+    {
+      "path": "decoder_llm/model.py",
+      "sha256": "c9605c6bc94a21a2ac96af6c933094cbe4b1cc75f16910b2b6a0d6b6825ce4ac"
+    },
+    {
+      "path": "decoder_llm/tokenizer.py",
+      "sha256": "90e6645e393550bd47df20a41de910b968a3d23036afc5a3581937e1a1760349"
+    },
+    {
+      "path": "decoder_llm/training.py",
+      "sha256": "3a91a76d0230f5201392c328f3d3077aaeca7b75db6247ea1037c7a3704b633c"
+    },
+    {
+      "path": "scripts/run_reference_experiment.py",
+      "sha256": "0ef300cf149928cca61e6c5cac647e1df9c07295f3bd43a93f5c4fa81fff2cf4"
+    }
+  ],
+  "model_config": {
+    "vocab_size": 25,
+    "context_length": 64,
+    "d_model": 64,
+    "num_layers": 2,
+    "num_heads": 4,
+    "d_ff": 128,
+    "sep_token_id": -1,
+    "dropout": 0.1,
+    "bias": true
+  },
+  "split_seed": 20261017,
+  "split_policy": "complete unique sentences; fixed 80/10/10 ordered after seeded shuffle",
+  "splits": {
+    "train": {
+      "sentences": 307,
+      "sha256": "4ee2f6757fe418e32e67efe09e6cfa3010900076c6faf881944c344b02e97eba"
+    },
+    "validation": {
+      "sentences": 38,
+      "sha256": "a3d59081e7a69ab01b6154f09f35bc6bf0bc190c54f8dde938980f692caaabdb"
+    },
+    "test": {
+      "sentences": 39,
+      "sha256": "7cfd565d7d0ddc4ce341831eb6ed1c40163951839d8f00267eaab6b09ee35987"
+    }
+  },
+  "evaluation_policy": "all test next-character targets once, nonoverlapping context chunks",
+  "test_selection": "final fixed training step; no checkpoint selection using test loss",
+  "runs": [
+    {
+      "seed": 17,
+      "train_config": {
+        "steps": 300,
+        "batch_size": 16,
+        "learning_rate": 0.001,
+        "weight_decay": 0.05,
+        "grad_clip": 1.0,
+        "seed": 17,
+        "val_fraction": 0.1,
+        "val_batches": 4,
+        "eval_every": 100,
+        "save_every": 100,
+        "deterministic": true
+      },
+      "untrained_test": {
+        "loss": 3.250446115165138,
+        "perplexity": 25.80184794570635,
+        "tokens": 1213
+      },
+      "trained_test": {
+        "loss": 0.3305863524308798,
+        "perplexity": 1.3917839651677242,
+        "tokens": 1213
+      },
+      "final_validation": {
+        "loss": 0.32035427540540695,
+        "perplexity": 1.3776157332655559,
+        "tokens": 4096
+      },
+      "greedy_sample": "the red robot moves the boox.\nthe gren baker moves the box.\nthe green baker mo",
+      "cache_benchmarks": {
+        "within_context": {
+          "torch_version": "2.14.1+cpu",
+          "python_version": "3.12.5",
+          "platform": "Windows-11-10.0.26200-SP0",
+          "device": "cpu",
+          "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+          "cpu_threads": 1,
+          "dtype": "torch.float32",
+          "batch_size": 1,
+          "prompt_tokens": 14,
+          "new_tokens": 24,
+          "context_length": 64,
+          "model_config": {
+            "vocab_size": 25,
+            "context_length": 64,
+            "d_model": 64,
+            "num_layers": 2,
+            "num_heads": 4,
+            "d_ff": 128,
+            "sep_token_id": -1,
+            "dropout": 0.1,
+            "bias": true
+          },
+          "parameter_count": 72448,
+          "repeats": 5,
+          "warmup": 2,
+          "outputs_equal": true,
+          "includes_prefill": true,
+          "context_rollover": false,
+          "speedup": 1.2062634605064357,
+          "uncached": {
+            "seconds": [
+              0.055030499992426485,
+              0.057789399987086654,
+              0.063455099996645,
+              0.06082680000690743,
+              0.06308809999609366
+            ],
+            "median_seconds": 0.06082680000690743,
+            "generated_tokens_per_second": 394.5629228773268,
+            "peak_cuda_allocated_bytes": null
+          },
+          "cached": {
+            "seconds": [
+              0.03491829999256879,
+              0.039433799975086004,
+              0.0651765999791678,
+              0.05151700001442805,
+              0.050425800000084564
+            ],
+            "median_seconds": 0.050425800000084564,
+            "generated_tokens_per_second": 475.94683673753815,
+            "peak_cuda_allocated_bytes": null
+          }
+        },
+        "with_rollover": {
+          "torch_version": "2.14.1+cpu",
+          "python_version": "3.12.5",
+          "platform": "Windows-11-10.0.26200-SP0",
+          "device": "cpu",
+          "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+          "cpu_threads": 1,
+          "dtype": "torch.float32",
+          "batch_size": 1,
+          "prompt_tokens": 14,
+          "new_tokens": 80,
+          "context_length": 64,
+          "model_config": {
+            "vocab_size": 25,
+            "context_length": 64,
+            "d_model": 64,
+            "num_layers": 2,
+            "num_heads": 4,
+            "d_ff": 128,
+            "sep_token_id": -1,
+            "dropout": 0.1,
+            "bias": true
+          },
+          "parameter_count": 72448,
+          "repeats": 5,
+          "warmup": 2,
+          "outputs_equal": true,
+          "includes_prefill": true,
+          "context_rollover": true,
+          "speedup": 1.2300814554157318,
+          "uncached": {
+            "seconds": [
+              0.21801730000879616,
+              0.3691390999883879,
+              0.2258328000025358,
+              0.20120129999122582,
+              0.20970669999951497
+            ],
+            "median_seconds": 0.21801730000879616,
+            "generated_tokens_per_second": 366.94335723253295,
+            "peak_cuda_allocated_bytes": null
+          },
+          "cached": {
+            "seconds": [
+              0.21253340001567267,
+              0.2021379999932833,
+              0.1698647000011988,
+              0.16185740000219084,
+              0.17723810000461526
+            ],
+            "median_seconds": 0.17723810000461526,
+            "generated_tokens_per_second": 451.3702189197289,
+            "peak_cuda_allocated_bytes": null
+          }
+        }
+      }
+    },
+    {
+      "seed": 29,
+      "train_config": {
+        "steps": 300,
+        "batch_size": 16,
+        "learning_rate": 0.001,
+        "weight_decay": 0.05,
+        "grad_clip": 1.0,
+        "seed": 29,
+        "val_fraction": 0.1,
+        "val_batches": 4,
+        "eval_every": 100,
+        "save_every": 100,
+        "deterministic": true
+      },
+      "untrained_test": {
+        "loss": 3.236580329008173,
+        "perplexity": 25.44655394732341,
+        "tokens": 1213
+      },
+      "trained_test": {
+        "loss": 0.323809460972521,
+        "perplexity": 1.3823838839432294,
+        "tokens": 1213
+      },
+      "final_validation": {
+        "loss": 0.31393396854400635,
+        "perplexity": 1.3687993497491955,
+        "tokens": 4096
+      },
+      "greedy_sample": "the red robot moves the boook.\nthe gold artist moves the book.\nthe gold baker "
+    },
+    {
+      "seed": 43,
+      "train_config": {
+        "steps": 300,
+        "batch_size": 16,
+        "learning_rate": 0.001,
+        "weight_decay": 0.05,
+        "grad_clip": 1.0,
+        "seed": 43,
+        "val_fraction": 0.1,
+        "val_batches": 4,
+        "eval_every": 100,
+        "save_every": 100,
+        "deterministic": true
+      },
+      "untrained_test": {
+        "loss": 3.2681509774279616,
+        "perplexity": 26.262734032925596,
+        "tokens": 1213
+      },
+      "trained_test": {
+        "loss": 0.3057954218991021,
+        "perplexity": 1.3577045215219012,
+        "tokens": 1213
+      },
+      "final_validation": {
+        "loss": 0.30643949657678604,
+        "perplexity": 1.35857926629423,
+        "tokens": 4096
+      },
+      "greedy_sample": "the red robot moves the box.\nthe gold artist moves the box.\nthe gold artist mo"
+    }
+  ],
+  "summary": {
+    "trained_test_loss_mean": 0.3200637451008343,
+    "trained_test_loss_stdev": 0.012812897787050808,
+    "untrained_test_loss_mean": 3.2517258072004243
+  },
+  "limitations": [
+    "Controlled synthetic grammar, not translation or natural-language quality.",
+    "One CPU/hardware/software environment; no GPU validation.",
+    "Few seeds, small model and short budget; timing confidence intervals not estimated."
+  ]
+}

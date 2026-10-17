@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "decoder-only-transformer-llm"
+version = "0.2.0"
+description = "Character-level decoder Transformer with reproducible training and KV-cache experiments"
+readme = "README.md"
+requires-python = ">=3.10"
+license-files = ["LICENSE", "NOTICE", "PROVENANCE.md"]
+dependencies = ["torch>=2.10,<3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "build>=1.2,<2"]
+plots = ["matplotlib>=3.8,<4"]
+
+[project.scripts]
+decoder-llm = "decoder_llm.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["decoder_llm*", "student*"]
+exclude = ["tests*", "data*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

@@ -1,0 +1,43 @@
+{
+  "torch_version": "2.14.1+cpu",
+  "python_version": "3.12.5",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "device": "cpu",
+  "device_name": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+  "cpu_threads": 1,
+  "dtype": "torch.float32",
+  "batch_size": 1,
+  "prompt_tokens": 10,
+  "new_tokens": 16,
+  "context_length": 32,
+  "repeats": 5,
+  "warmup": 2,
+  "outputs_equal": true,
+  "includes_prefill": true,
+  "context_rollover": false,
+  "speedup": 1.29473734733292,
+  "uncached": {
+    "seconds": [
+      0.032110100000863895,
+      0.03507559999707155,
+      0.03883020000648685,
+      0.029549600003520027,
+      0.03522250000969507
+    ],
+    "median_seconds": 0.03507559999707155,
+    "generated_tokens_per_second": 456.1575568582101,
+    "peak_cuda_allocated_bytes": null
+  },
+  "cached": {
+    "seconds": [
+      0.030213999998522922,
+      0.03250920001300983,
+      0.02709089999552816,
+      0.02496340000652708,
+      0.023719999997410923
+    ],
+    "median_seconds": 0.02709089999552816,
+    "generated_tokens_per_second": 590.6042251324646,
+    "peak_cuda_allocated_bytes": null
+  }
+}

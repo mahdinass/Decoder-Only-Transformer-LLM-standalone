@@ -1,0 +1,55 @@
+{
+  "torch_version": "2.10.0+cu128",
+  "python_version": "3.12.3",
+  "platform": "Linux-6.8.0-52-generic-x86_64-with-glibc2.39",
+  "device": "cuda:0",
+  "device_name": "NVIDIA RTX A5000",
+  "cpu_threads": 1,
+  "dtype": "torch.float32",
+  "batch_size": 1,
+  "prompt_tokens": 16,
+  "new_tokens": 144,
+  "context_length": 128,
+  "model_config": {
+    "vocab_size": 32,
+    "context_length": 128,
+    "d_model": 128,
+    "num_layers": 2,
+    "num_heads": 4,
+    "d_ff": 512,
+    "sep_token_id": -1,
+    "dropout": 0.0,
+    "bias": true
+  },
+  "parameter_count": 416640,
+  "repeats": 5,
+  "warmup": 2,
+  "outputs_equal": true,
+  "includes_prefill": true,
+  "context_rollover": true,
+  "speedup": 1.1059127258624233,
+  "uncached": {
+    "seconds": [
+      0.28100940212607384,
+      0.30445655807852745,
+      0.28025660663843155,
+      0.31308142095804214,
+      0.2846887707710266
+    ],
+    "median_seconds": 0.2846887707710266,
+    "generated_tokens_per_second": 505.81552482735015,
+    "peak_cuda_allocated_bytes": 37994496
+  },
+  "cached": {
+    "seconds": [
+      0.2634839303791523,
+      0.2574242651462555,
+      0.26532550156116486,
+      0.25677772611379623,
+      0.25722332298755646
+    ],
+    "median_seconds": 0.2574242651462555,
+    "generated_tokens_per_second": 559.387825845347,
+    "peak_cuda_allocated_bytes": 37994496
+  }
+}

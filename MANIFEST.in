@@ -1,0 +1,14 @@
+include README.md LICENSE NOTICE PROVENANCE.md CONTRIBUTING.md SECURITY.md CHANGELOG.md uv.lock requirements.txt
+recursive-include docs *.md *.json *.txt *.xml *.log
+recursive-include examples *.txt *.json
+recursive-include scripts *.py
+recursive-include tests *.py
+prune data
+prune .github
+prune runs
+prune output
+prune .cache
+prune .venv
+prune .release-review
+exclude losses.png
+global-exclude *.pt *.pth *.ckpt *.pyc

@@ -1,0 +1,7 @@
+/data export-ignore
+/losses.png export-ignore
+/.github export-ignore
+/.release-review export-ignore
+/docs/experiments/cuda-2026-10-17/* -text
+/scripts/validate_cuda.py text eol=lf
+/tests/test_cuda.py text eol=lf

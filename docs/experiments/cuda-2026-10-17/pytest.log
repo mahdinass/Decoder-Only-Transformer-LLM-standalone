@@ -1,0 +1,156 @@
+......................................................................                                                      [100%]
+============================================================= PASSES ==============================================================
+________________________________________ test_exact_resume_matches_uninterrupted_training _________________________________________
+------------------------------------------------------ Captured stderr call -------------------------------------------------------
+{"step": 2, "train_loss": 1.8283346891403198, "validation": {"loss": 1.839661955833435, "perplexity": 6.294410112722289, "tokens": 32}}
+{"step": 4, "train_loss": 1.85140860080719, "validation": {"loss": 1.832656443119049, "perplexity": 6.250468638636014, "tokens": 32}}
+{"step": 2, "train_loss": 1.8283346891403198, "validation": {"loss": 1.839661955833435, "perplexity": 6.294410112722289, "tokens": 32}}
+{"step": 4, "train_loss": 1.85140860080719, "validation": {"loss": 1.832656443119049, "perplexity": 6.250468638636014, "tokens": 32}}
+___________________________________________ test_paired_training_and_overlap_detection ____________________________________________
+------------------------------------------------------ Captured stderr call -------------------------------------------------------
+{"step": 1, "train_loss": 1.4577728509902954, "validation": {"loss": 1.4625479380289714, "perplexity": 4.316944835376422, "tokens": 6}}
+________________________________________________________ test_cli_workflow ________________________________________________________
+------------------------------------------------------ Captured stderr call -------------------------------------------------------
+error: character 'u' is outside the training vocabulary
+___________________________________________ test_original_pretrain_helper_cycles_loader ___________________________________________
+------------------------------------------------------ Captured stdout call -------------------------------------------------------
+Step 2/2 | Loss: 1.9549
+_________________________________________________ test_cuda_exact_training_resume _________________________________________________
+------------------------------------------------------ Captured stderr call -------------------------------------------------------
+{"step": 2, "train_loss": 1.8327512741088867, "validation": {"loss": 1.8392665386199951, "perplexity": 6.291921686630947, "tokens": 32}}
+{"step": 4, "train_loss": 1.824972152709961, "validation": {"loss": 1.8322482109069824, "perplexity": 6.2479175167577035, "tokens": 32}}
+{"step": 2, "train_loss": 1.8327512741088867, "validation": {"loss": 1.8392665386199951, "perplexity": 6.291921686630947, "tokens": 32}}
+{"step": 4, "train_loss": 1.824972152709961, "validation": {"loss": 1.8322482109069824, "perplexity": 6.2479175167577035, "tokens": 32}}
+_____________________________________________________ test_cuda_cli_workflow ______________________________________________________
+------------------------------------------------------ Captured stdout call -------------------------------------------------------
+{
+  "loss": 1.8304697151566827,
+  "perplexity": 6.236815497379419,
+  "tokens": 299,
+  "context_policy": "nonoverlapping chunks; context resets; every target scored once"
+}
+{
+  "torch_version": "2.10.0+cu128",
+  "python_version": "3.12.3",
+  "platform": "Linux-6.8.0-52-generic-x86_64-with-glibc2.39",
+  "device": "cuda:0",
+  "device_name": "NVIDIA RTX A5000",
+  "cpu_threads": 1,
+  "dtype": "torch.float32",
+  "batch_size": 1,
+  "prompt_tokens": 3,
+  "new_tokens": 4,
+  "context_length": 8,
+  "model_config": {
+    "vocab_size": 6,
+    "context_length": 8,
+    "d_model": 16,
+    "num_layers": 1,
+    "num_heads": 4,
+    "d_ff": 32,
+    "sep_token_id": -1,
+    "dropout": 0.1,
+    "bias": true
+  },
+  "parameter_count": 2432,
+  "repeats": 1,
+  "warmup": 0,
+  "outputs_equal": true,
+  "includes_prefill": true,
+  "context_rollover": false,
+  "speedup": 1.030081361498843,
+  "uncached": {
+    "seconds": [
+      0.0071458518505096436
+    ],
+    "median_seconds": 0.0071458518505096436,
+    "generated_tokens_per_second": 559.7653133145658,
+    "peak_cuda_allocated_bytes": 68180992
+  },
+  "cached": {
+    "seconds": [
+      0.0069371722638607025
+    ],
+    "median_seconds": 0.0069371722638607025,
+    "generated_tokens_per_second": 576.6038160588943,
+    "peak_cuda_allocated_bytes": 68179968
+  }
+}
+_________________________________ test_reference_report_matches_actual_data_bytes_and_vocabulary __________________________________
+------------------------------------------------------ Captured stdout call -------------------------------------------------------
+Running reference experiment: seed=17, steps=1
+Reference report saved: /tmp/pytest-of-root/pytest-0/test_reference_report_matches_0/reference.json
+------------------------------------------------------ Captured stderr call -------------------------------------------------------
+{"step": 1, "train_loss": 3.2573654651641846, "validation": {"loss": 3.0735729336738586, "perplexity": 21.61900812877863, "tokens": 4096}}
+===================================================== short test summary info =====================================================
+PASSED tests/test_checkpoint_and_experiment.py::test_checkpoint_roundtrip
+PASSED tests/test_checkpoint_and_experiment.py::test_legacy_requires_explicit_trust
+PASSED tests/test_checkpoint_and_experiment.py::test_unsupported_format_and_vocabulary
+PASSED tests/test_checkpoint_and_experiment.py::test_exact_resume_matches_uninterrupted_training
+PASSED tests/test_checkpoint_and_experiment.py::test_training_vocabulary_does_not_use_validation
+PASSED tests/test_checkpoint_and_experiment.py::test_paired_training_and_overlap_detection
+PASSED tests/test_checkpoint_and_experiment.py::test_token_weighted_evaluation_and_mode_restore
+PASSED tests/test_checkpoint_and_experiment.py::test_character_metrics
+PASSED tests/test_checkpoint_and_experiment.py::test_cli_workflow
+PASSED tests/test_checkpoint_and_experiment.py::test_legacy_import_paths
+PASSED tests/test_checkpoint_and_experiment.py::test_original_pretrain_helper_cycles_loader
+PASSED tests/test_cuda.py::test_cuda_training_updates_finite_parameters
+PASSED tests/test_cuda.py::test_cuda_causality_and_chunked_cache
+PASSED tests/test_cuda.py::test_cuda_generation_cache_equivalence[3]
+PASSED tests/test_cuda.py::test_cuda_generation_cache_equivalence[12]
+PASSED tests/test_cuda.py::test_cuda_sampling_reproducible
+PASSED tests/test_cuda.py::test_cuda_checkpoint_portability
+PASSED tests/test_cuda.py::test_cuda_exact_training_resume
+PASSED tests/test_cuda.py::test_cuda_benchmark_reports_memory
+PASSED tests/test_cuda.py::test_cuda_cli_workflow
+PASSED tests/test_data.py::test_tokenizer_roundtrip_and_restored_order
+PASSED tests/test_data.py::test_minimal_text_and_partial_batch
+PASSED tests/test_data.py::test_translation_boundary_long_prompt_and_padding
+PASSED tests/test_data.py::test_dataset_generator_does_not_consume_global_rng
+PASSED tests/test_data.py::test_parse_pairs
+PASSED tests/test_generation.py::test_cached_greedy_matches_uncached_across_rollover[3-4]
+PASSED tests/test_generation.py::test_cached_greedy_matches_uncached_across_rollover[7-7]
+PASSED tests/test_generation.py::test_cached_greedy_matches_uncached_across_rollover[12-4]
+PASSED tests/test_generation.py::test_seeded_sampling_and_top_k
+PASSED tests/test_generation.py::test_batched_eos_and_separator
+PASSED tests/test_generation.py::test_legacy_beam_search_and_zero_tokens
+PASSED tests/test_generation.py::test_invalid_generation[args0]
+PASSED tests/test_generation.py::test_invalid_generation[args1]
+PASSED tests/test_generation.py::test_invalid_generation[args2]
+PASSED tests/test_generation.py::test_invalid_generation[args3]
+PASSED tests/test_generation.py::test_invalid_generation[args4]
+PASSED tests/test_generation.py::test_invalid_generation[args5]
+PASSED tests/test_generation.py::test_invalid_generation[args6]
+PASSED tests/test_generation.py::test_benchmark_records_measurements_and_equivalence
+PASSED tests/test_generation.py::test_repetition_penalty_changes_decoding_for_both_logit_signs[scores0-greedy]
+PASSED tests/test_generation.py::test_repetition_penalty_changes_decoding_for_both_logit_signs[scores0-sample]
+PASSED tests/test_generation.py::test_repetition_penalty_changes_decoding_for_both_logit_signs[scores0-beam]
+PASSED tests/test_generation.py::test_repetition_penalty_changes_decoding_for_both_logit_signs[scores1-greedy]
+PASSED tests/test_generation.py::test_repetition_penalty_changes_decoding_for_both_logit_signs[scores1-sample]
+PASSED tests/test_generation.py::test_repetition_penalty_changes_decoding_for_both_logit_signs[scores1-beam]
+PASSED tests/test_generation.py::test_invalid_prompt_rejected_even_when_generation_is_empty[prompt0]
+PASSED tests/test_generation.py::test_invalid_prompt_rejected_even_when_generation_is_empty[prompt1]
+PASSED tests/test_generation.py::test_invalid_prompt_rejected_even_when_generation_is_empty[prompt2]
+PASSED tests/test_generation.py::test_invalid_repetition_penalty[0.5]
+PASSED tests/test_generation.py::test_invalid_repetition_penalty[nan]
+PASSED tests/test_generation.py::test_invalid_repetition_penalty[inf]
+PASSED tests/test_model.py::test_invalid_config[values0]
+PASSED tests/test_model.py::test_invalid_config[values1]
+PASSED tests/test_model.py::test_invalid_config[values2]
+PASSED tests/test_model.py::test_invalid_config[values3]
+PASSED tests/test_model.py::test_invalid_config[values4]
+PASSED tests/test_model.py::test_invalid_config[values5]
+PASSED tests/test_model.py::test_invalid_config[values6]
+PASSED tests/test_model.py::test_invalid_config[values7]
+PASSED tests/test_model.py::test_future_tokens_do_not_affect_prefix
+PASSED tests/test_model.py::test_cached_chunk_matches_full_prefix
+PASSED tests/test_model.py::test_cache_overflow_and_invalid_layers
+PASSED tests/test_model.py::test_invalid_inputs[ids0]
+PASSED tests/test_model.py::test_invalid_inputs[ids1]
+PASSED tests/test_model.py::test_invalid_inputs[ids2]
+PASSED tests/test_model.py::test_tied_weights_receive_gradients
+PASSED tests/test_model.py::test_rmsnorm_half_precision_avoids_square_overflow
+PASSED tests/test_model.py::test_masked_loss_and_noncontiguous_tensors
+PASSED tests/test_reference_experiment.py::test_reference_corpus_has_disjoint_complete_sentences
+PASSED tests/test_reference_experiment.py::test_reference_report_matches_actual_data_bytes_and_vocabulary
+70 passed in 5.25s

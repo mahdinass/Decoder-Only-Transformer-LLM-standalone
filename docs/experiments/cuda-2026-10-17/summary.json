@@ -1,0 +1,50 @@
+{
+  "started_utc": "2026-10-17T21:41:32.547686+00:00",
+  "passed": true,
+  "source_sha256": {
+    "decoder_llm/__init__.py": "8e045863b077854f35e0374f903f6b702be5326fd146afa9f7af6ac73bd35354",
+    "decoder_llm/__main__.py": "c13eb66970ae37b8b044f428b309e67868814b90a8bb408806f3316ce4dfbc5b",
+    "decoder_llm/benchmark.py": "24cded72ce71536e1e08d92f817c85ef16ebf6a54acc934a7575f04e5b29428a",
+    "decoder_llm/checkpoint.py": "053eea256759c26fc910e014434ae4568ba2ed6d0a79d30fb80012c45bf8a694",
+    "decoder_llm/cli.py": "732f1ccf8bbd23dfff0105a0c4c22670200d5ffed5c7f17bc8ce10c1a413f3c4",
+    "decoder_llm/data.py": "b819a28ec14c714de50215207ad943fe82beb06efcfe9544f1eebb796c5ff065",
+    "decoder_llm/evaluation.py": "c647eefee6a273fdfb07c72450078e6365c7b5cb6a7e8d7cd189dace2dc874d2",
+    "decoder_llm/experiment.py": "fc706788b0c25b1d0a3dc1b77ffc02f55b5f796f97b95ecadecad42779929596",
+    "decoder_llm/generation.py": "e6f586d26ebf582bfffa1611c7957c0edc8311eb67a0f425ecb6c0653160fcd7",
+    "decoder_llm/metrics.py": "10392c810340fcd01b45ec15f1fef6450c1022465905ca0ce1177e06fdf14c91",
+    "decoder_llm/model.py": "c9605c6bc94a21a2ac96af6c933094cbe4b1cc75f16910b2b6a0d6b6825ce4ac",
+    "decoder_llm/tokenizer.py": "90e6645e393550bd47df20a41de910b968a3d23036afc5a3581937e1a1760349",
+    "decoder_llm/training.py": "3a91a76d0230f5201392c328f3d3077aaeca7b75db6247ea1037c7a3704b633c",
+    "scripts/audit_history.py": "a6d3e6e03b6300415b97c21888deec4e9182830a708d2a17dbb802b99ad39a08",
+    "scripts/check_distribution.py": "e07e8cff72cd5712c578912539d705a205c719476f3ae2b0df371696d68dcb3c",
+    "scripts/run_reference_experiment.py": "7d3d9fd17384217845709d66cffcd44c1209188a3b7443169c9c88946124bc5b",
+    "scripts/validate_cuda.py": "79ff2a14263fe94ab81e23b93b29a5d9ccaa8520b7bb2ea3789290c77af1542a",
+    "tests/conftest.py": "6de98b8533c4561e80d51a7a6f596bb78edab46dc17fc236098a6891bb175e9b",
+    "tests/test_checkpoint_and_experiment.py": "c47ffaadc7c62145c556e35fe4150feed2e7139c9e9a5c0de54060d6e4b3a0c9",
+    "tests/test_cuda.py": "075c30ac5f316e537f5225bbbc7da51ac9e8708e8ebbe1e963fc8f6bf10c9c45",
+    "tests/test_data.py": "0003f22dab9abcf1da04b5c349594b2523c44eca32c41243785ca475beae7ccb",
+    "tests/test_generation.py": "37ca3871750fc5575cb6540c567ec9e0b9ab1c631c35c59be83d1e11d3dc7d01",
+    "tests/test_model.py": "121af8cf5a21c2225b02ea0d8becd5ce2decfb09acc7792c8e4481b4f72dad66",
+    "tests/test_reference_experiment.py": "c9b54036e69ef5b1636043c6f7f12b0c98ec67f63bdf4bde0bb633fe95a929e9"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-6.8.0-52-generic-x86_64-with-glibc2.39",
+    "torch": "2.10.0+cu128",
+    "cuda_runtime": "12.8",
+    "cuda_available": true,
+    "gpu": "NVIDIA RTX A5000",
+    "compute_capability": [
+      8,
+      6
+    ]
+  },
+  "pytest_exit_code": 0,
+  "tests": {
+    "tests": 70,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "finished_utc": "2026-10-17T21:41:51.468061+00:00"
+}

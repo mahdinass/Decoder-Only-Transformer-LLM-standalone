@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-18",
+  "gitleaks_version": "8.30.1",
+  "scope": "Fresh exported source files before initial commit; original private Git objects not imported or rescanned",
+  "command": "gitleaks dir <exported-source> --redact --no-banner",
+  "raw_findings": 1,
+  "reviewed_false_positives": 1,
+  "credential_values_identified": 0,
+  "false_positive": "SHA-256 for decoder_llm/tokenizer.py in retained CUDA summary; verified against source bytes",
+  "limitations": "Negative scans do not certify absence of unknown or encoded secrets; hosted artifacts and unavailable refs are outside scope."
+}

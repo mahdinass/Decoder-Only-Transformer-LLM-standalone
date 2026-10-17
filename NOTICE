@@ -1,0 +1,19 @@
+Contributor credits
+===================
+
+Project maintainer and implementation contributions: Mahdi (mahdinass).
+
+Mahdi's original contributions are licensed under the MIT License in LICENSE.
+That grant covers rights held by Mahdi; it does not relicense other contributors'
+work, third-party dependencies or the historical corpus. Source components are
+identified in PROVENANCE.md.
+
+The private development history also records contributions by vinaysetty. The model
+scaffold, initialization/weight-tying structure, optimization helper and character
+metric utilities were present in earlier snapshots; the train_epoch helper was
+contributed by vinaysetty. See PROVENANCE.md for the source mapping.
+These credits do not assert affiliation with any organization.
+
+New examples and the controlled grammar experiment use project-generated text.
+The historical corpus and plot are absent from this repository and its archives.
+PyTorch and other dependencies retain their upstream copyright notices.

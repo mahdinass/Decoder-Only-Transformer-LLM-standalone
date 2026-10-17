@@ -1,0 +1,6 @@
+{
+  "loss": 3.1532597451839806,
+  "perplexity": 23.41225832369734,
+  "tokens": 106,
+  "context_policy": "nonoverlapping chunks; context resets; every target scored once"
+}
